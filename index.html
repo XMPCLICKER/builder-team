@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>XMP Builder Team</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0a0a0a;
+      font-family: 'Rubik', sans-serif;
+      color: #f1c40f;
+      text-align: center;
+    }
+
+    .overlay {
+      padding: 40px;
+      min-height: 100vh;
+      background: linear-gradient(to bottom, #0a0a0a, #1a1a1a);
+    }
+
+    h1 {
+      color: #f1c40f;
+      font-size: 3em;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px #000;
+    }
+
+    .leader, .builder {
+      background-color: #1a1a1a;
+      margin: 20px auto;
+      padding: 25px;
+      max-width: 900px;
+      border: 4px solid #f1c40f;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #f1c40f;
+    }
+
+    .leader h2 {
+      color: #f39c12;
+      font-size: 1.6em;
+      margin-bottom: 10px;
+    }
+
+    .builder h2 {
+      color: #f1c40f;
+      font-size: 1.5em;
+      margin-bottom: 15px;
+    }
+
+    .builders-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      justify-items: center;
+    }
+
+    .builder-card {
+      background-color: #2c2c2c;
+      border: 2px solid #444;
+      border-radius: 10px;
+      padding: 10px;
+      width: 160px;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .builder-card:hover {
+      transform: scale(1.05);
+      background-color: #f1c40f;
+      color: #000;
+    }
+
+    .builder-card img {
+      border-radius: 5px;
+      margin-bottom: 10px;
+      width: 100%;
+      height: auto;
+    }
+
+    .builder-name {
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+
+    .builder-role {
+      font-size: 0.9em;
+      color: #ccc;
+    }
+
+    .footer {
+      margin-top: 60px;
+      font-size: 0.9em;
+      color: #777;
+    }
+
+    /* Modal styling */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #1a1a1a;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 500px;
+      text-align: center;
+      border: 4px solid #f1c40f;
+      box-shadow: 0 0 20px #f1c40f;
+      color: #f1c40f;
+    }
+
+    .modal-content h3 {
+      margin-top: 0;
+      color: #f39c12;
+    }
+
+    .modal-content p {
+      color: #ddd;
+      margin-bottom: 0;
+    }
+
+    .close-btn {
+      margin-top: 20px;
+      padding: 8px 20px;
+      background: #f1c40f;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h1>🛠️ Builder Tým – XMP Server</h1>
+
+    <div class="leader">
+      <h2>👑 Hlavní Builder:</h2>
+      <div class="builder-card" onclick="showModal('Smoliq')">
+        <img src="https://crafatar.com/avatars/76516b34-e2ed-4e4c-a044-1e5a218b56f0" alt="Smoliq">
+        <div class="builder-name">Smoliq</div>
+        <div class="builder-role">Vedoucí týmu</div>
+      </div>
+    </div>
+
+    <div class="builder">
+      <h2>👷‍♂️ Buildeři:</h2>
+      <div class="builders-grid">
+        <div class="builder-card" onclick="showModal('ElecDeemTV')">
+          <img src="https://crafatar.com/avatars/d87032c7-42e7-4338-8fab-1eea8954c6d0" alt="ElecDeemTV">
+          <div class="builder-name">ElecDeemTV</div>
+          <div class="builder-role">Redstone & Dekorace</div>
+        </div>
+        <div class="builder-card" onclick="showModal('Igor')">
+          <img src="https://crafatar.com/avatars/Igor?size=100" alt="Igor">
+          <div class="builder-name">Igor</div>
+          <div class="builder-role">Hradby & PvP Areny</div>
+        </div>
+        <div class="builder-card" onclick="showModal('Getrix')">
+          <img src="https://crafatar.com/avatars/Getrix?size=100" alt="Getrix">
+          <div class="builder-name">Getrix</div>
+          <div class="builder-role">Terén & Interiéry</div>
+        </div>
+        <div class="builder-card" onclick="showModal('vojtano')">
+          <img src="https://crafatar.com/avatars/c4564a9e-a4a9-4c05-b7d5-920f05266bbf?size=100" alt="vojtano">
+          <div class="builder-name">vojtano</div>
+          <div class="builder-role">Zemědělské oblasti</div>
+        </div>
+        <div class="builder-card" onclick="showModal('Sebik')">
+          <img src="https://crafatar.com/avatars/Sebik?size=100" alt="Sebik">
+          <div class="builder-name">Sebik</div>
+          <div class="builder-role">Moderní stavby</div>
+        </div>
+        <div class="builder-card" onclick="showModal('Kapřík')">
+          <img src="https://crafatar.com/avatars/Kapřík?size=100" alt="Kapřík">
+          <div class="builder-name">Kapřík</div>
+          <div class="builder-role">Fantasy & Eventy</div>
+        </div>
+        <div class="builder-card" onclick="showModal('algame')">
+          <img src="https://crafatar.com/avatars/87891f82-da27-4641-bd47-403a728544b4" alt="algame">
+          <div class="builder-name">algame</div>
+          <div class="builder-role">Středověké vesnice</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      © 2025 XMP Server – Build Team
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="builderModal" class="modal">
+    <div class="modal-content">
+      <h3 id="modalName">Jméno</h3>
+      <p id="modalRole">Role</p>
+      <p id="modalInfo">Info o hráči...</p>
+      <button class="close-btn" onclick="closeModal()">Zavřít</button>
+    </div>
+  </div>
+
+  <script>
+    const builderData = {
+      "Smoliq": {
+        role: "Vedoucí týmu",
+        info: "Smoliq je hlavní architekt, který dohlíží na všechny projekty a koordinuje tým."
+      },
+      "ElecDeemTV": {
+        role: "Redstone & Dekorace",
+        info: "Expert na redstone a dekorativní prvky. Vytváří detailní mechanismy i výzdobu."
+      },
+      "Igor": {
+        role: "Hradby & PvP Areny",
+        info: "Specialista na obranné stavby a souboje. PvP je jeho doména!"
+      },
+      "Getrix": {
+        role: "Terén & Interiéry",
+        info: "Přetváří krajinu do realistické podoby a vyzdobí každý interiér."
+      },
+      "vojtano": {
+        role: "Zemědělské oblasti",
+        info: "Vytváří farmy, stáje, mlýny a všechno, co souvisí s přírodou."
+      },
+      "Sebik": {
+        role: "Moderní stavby",
+        info: "Moderní styl? Beton, sklo a stylová architektura – to je Sebik!"
+      },
+      "Kapřík": {
+        role: "Fantasy & Eventy",
+        info: "Staví kouzelné světy, dungeony a eventové lokace. Kreativní duše týmu."
+      },
+      "algame": {
+        role: "Středověké vesnice",
+        info: "Specialista na stavbu středověkých vesnic, tržišť a měšťanských domů. Má cit pro detail a autenticitu."
+      }
+    };
+
+    function showModal(name) {
+      const data = builderData[name];
+      document.getElementById('modalName').textContent = name;
+      document.getElementById('modalRole').textContent = data.role;
+      document.getElementById('modalInfo').textContent = data.info;
+      document.getElementById('builderModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('builderModal').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
