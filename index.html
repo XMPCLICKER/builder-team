@@ -96,7 +96,6 @@
       color: #777;
     }
 
-    /* Modal styling */
     .modal {
       display: none;
       position: fixed;
@@ -138,6 +137,21 @@
       border-radius: 5px;
       cursor: pointer;
       font-weight: bold;
+    }
+
+    input, textarea {
+      font-family: inherit;
+      background: #2c2c2c;
+      color: #f1c40f;
+      border: none;
+      padding: 8px;
+      margin: 8px 0;
+      border-radius: 5px;
+      width: 90%;
+    }
+
+    textarea {
+      resize: none;
     }
   </style>
 </head>
@@ -195,18 +209,35 @@
       </div>
     </div>
 
+    <div style="margin-top: 30px;">
+      <button class="close-btn" onclick="openExcuseModal()">📩 Omluvit se</button>
+    </div>
+
     <div class="footer">
       © 2025 XMP Server – Build Team
     </div>
   </div>
 
-  <!-- Modal -->
+  <!-- Modal: Info o Builderovi -->
   <div id="builderModal" class="modal">
     <div class="modal-content">
       <h3 id="modalName">Jméno</h3>
       <p id="modalRole">Role</p>
       <p id="modalInfo">Info o hráči...</p>
       <button class="close-btn" onclick="closeModal()">Zavřít</button>
+    </div>
+  </div>
+
+  <!-- Modal: Omluvenka -->
+  <div id="excuseModal" class="modal">
+    <div class="modal-content">
+      <h3>Omluvenka</h3>
+      <input type="text" id="excuseName" placeholder="Tvé jméno" />
+      <textarea id="excuseReason" placeholder="Důvod nepřítomnosti"></textarea>
+      <input type="number" id="excuseDays" placeholder="Počet dnů" min="1" />
+      <button class="close-btn" onclick="submitExcuse()">Odeslat</button>
+      <button class="close-btn" onclick="closeExcuseModal()" style="margin-left: 10px; background-color: #555; color: #fff;">Zrušit</button>
+      <p id="excuseConfirm" style="margin-top: 15px; color: #2ecc71; display: none;">Omluvenka byla úspěšně odeslána!</p>
     </div>
   </div>
 
@@ -256,6 +287,32 @@
 
     function closeModal() {
       document.getElementById('builderModal').style.display = 'none';
+    }
+
+    function openExcuseModal() {
+      document.getElementById('excuseModal').style.display = 'flex';
+    }
+
+    function closeExcuseModal() {
+      document.getElementById('excuseModal').style.display = 'none';
+      document.getElementById('excuseConfirm').style.display = 'none';
+      document.getElementById('excuseName').value = '';
+      document.getElementById('excuseReason').value = '';
+      document.getElementById('excuseDays').value = '';
+    }
+
+    function submitExcuse() {
+      const name = document.getElementById('excuseName').value.trim();
+      const reason = document.getElementById('excuseReason').value.trim();
+      const days = document.getElementById('excuseDays').value.trim();
+
+      if (!name || !reason || !days) {
+        alert("Vyplň prosím všechna pole.");
+        return;
+      }
+
+      console.log(`Omluvenka: ${name}, důvod: ${reason}, dní: ${days}`);
+      document.getElementById('excuseConfirm').style.display = 'block';
     }
   </script>
 </body>
