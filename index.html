@@ -311,8 +311,38 @@
         return;
       }
 
-      console.log(`Omluvenka: ${name}, důvod: ${reason}, dní: ${days}`);
-      document.getElementById('excuseConfirm').style.display = 'block';
+      const payload = {
+        embeds: [
+          {
+            title: "📝 Nová omluvenka",
+            color: 16776960,
+            fields: [
+              { name: "👤 Jméno", value: name, inline: true },
+              { name: "📆 Počet dnů", value: days + " dnů", inline: true },
+              { name: "📣 Důvod", value: reason }
+            ],
+            timestamp: new Date().toISOString()
+          }
+        ]
+      };
+
+      fetch("https://discordapp.com/api/webhooks/1389526350704152626/7E_wHujGbbJwGawP1rPQ5SJaxClhsGP0D2hREB1Ka0WKPrqPu41hgF1KLGWmEVymr-G3", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(res => {
+        if (res.ok) {
+          document.getElementById('excuseConfirm').style.display = 'block';
+        } else {
+          alert("Nepodařilo se odeslat omluvenku.");
+        }
+      })
+      .catch(() => {
+        alert("Chyba při připojení k Discord webhooku.");
+      });
     }
   </script>
 </body>
